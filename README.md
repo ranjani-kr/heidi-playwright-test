@@ -65,7 +65,7 @@ Add the following variables:
 USER_EMAIL=your_email@example.com
 USER_PASSWORD=your_password
 ```
-⚠️ **Ensure `.env` is added to `.gitignore` to keep credentials secure.**
+**Ensure `.env` is added to `.gitignore` to keep credentials secure.**
 
 ---
 
@@ -156,7 +156,7 @@ npx playwright show-report
 ```sh
 npx playwright test --reporter=html
 ```
-💡 **Open `playwright-report/index.html` in a browser to view test results.**
+**Open `playwright-report/index.html` in a browser to view test results.**
 
 ---
 
