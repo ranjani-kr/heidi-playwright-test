@@ -6,13 +6,17 @@ console.log("Loaded User Email:", process.env.USER_EMAIL || " NOT SET");
 console.log("Loaded User Password:", process.env.USER_PASSWORD ? "********" : " NOT SET");
 
 if (!process.env.USER_EMAIL || !process.env.USER_PASSWORD) {
-  throw new Error("ERROR: Missing USER_EMAIL or USER_PASSWORD in .env file!");
+  throw new Error("pwsERROR: Missing USER_EMAIL or USER_PASSWORD in .env file!");
 }
 
 module.exports = defineConfig({
   testDir: './tests',
   timeout: 30000,
+  //retries: 1,
+  workers: 3,
+  //testIgnore: ['tests/temp/**'],
   use: {
+    baseURL: process.env.BASE_URL || 'https://default-url.com',
     headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',  

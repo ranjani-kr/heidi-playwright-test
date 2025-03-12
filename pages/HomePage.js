@@ -1,10 +1,11 @@
 const { expect } = require('@playwright/test');
+
 class HomePage {
     constructor(page) {
         this.page = page;
         this.emailElement = page.locator('p.text-xs', { hasText: 'qa.exercise.heidi@gmail.com' });
-        this.newSessionButton = page.getByRole('button', { name: 'New session' });
-        this.startTranscribingButton = page.locator('button', { hasText: 'Start transcribing' });
+        this.newSessionButton = page.getByRole('button', { name: 'New session' }).first();
+        this.startTranscribingButton = page.locator('button', { hasText: 'Start transcribing' }).first();
         this.dropdownIcon = this.startTranscribingButton.locator('div.cursor-pointer');
         this.userMenu = page.locator('div[title^="QA Role"]');  
         this.logoutOption = page.locator('div[role="menuitem"]', { hasText: 'Log out' });
@@ -24,9 +25,9 @@ class HomePage {
 
     async selectDropDownFromStartTranscribing(selectOption) {
         console.log("Opening the upload menu...");
-        await this.startTranscribingButton.waitFor({ state: 'visible', timeout: 5000 });
+        await this.startTranscribingButton.waitFor({ state: 'visible', timeout: 5000 });//Locate the StartT ranscribing button
         await this.dropdownIcon.waitFor({ state: 'attached', timeout: 5000 });
-        await this.dropdownIcon.waitFor({ state: 'visible', timeout: 5000 });
+        await this.dropdownIcon.waitFor({ state: 'visible', timeout: 5000 });//Locate the dropdown inside button
         const dropdownElement = await this.dropdownIcon.elementHandle(); // Ensure dropdown is stable
         await dropdownElement.waitForElementState('stable');
         await dropdownElement.waitForElementState('visible');

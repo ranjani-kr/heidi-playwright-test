@@ -6,7 +6,8 @@ class NotePage {
         this.notesTab = page.getByRole('tab', { name: 'Note' });
         this.popup = page.getByRole('alertdialog');
         this.understandButton = page.locator('button', { hasText: 'I understand' });
-        this.notesGenerated = page.locator('.DraftEditor-editorContainer [contenteditable="true"]');
+        //this.notesGenerated = page.locator('.DraftEditor-editorContainer [contenteditable="true"]');
+        this.notesGenerated = page.locator('.tiptap.ProseMirror[role="textbox"]');
         this.ellipsisIcon = page.locator('#note-settings-container').getByRole('button').nth(3);
         this.viewEditTemplateOption = page.locator('div[role="menuitem"]', { hasText: 'View / edit template' });
         this.editTemplateDialog = page.locator('span', { hasText: 'Edit template' });

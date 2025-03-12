@@ -6,7 +6,8 @@ class ModalEditTemplatePage {
         this.editTemplateDialog = page.locator('span', { hasText: 'Edit template' });
         this.dialogPop = page.locator('//div[@role="dialog"]');
         this.templateHeading = page.getByPlaceholder("Untitled template");
-        this.templateContent = page.locator('textarea[placeholder="Start writing your template content here..."]');
+        //this.templateContent = page.locator('textarea[placeholder="Start writing your template content here..."]');
+        this.templateContent = page.locator('.tiptap.ProseMirror[role="textbox"]').nth(1);
         this.saveButton = page.getByRole('button', { name: 'Save & use' });
     }
 
@@ -21,11 +22,15 @@ class ModalEditTemplatePage {
         console.log("Editing template content...");
         await this.templateContent.waitFor({ state: 'visible', timeout: 60000 });
 
-        const existingText = await this.templateContent.inputValue();
+        const existingText = await this.templateContent.textContent();
         const updatedContent = existingText.replace(/^Subjective:.*/, newContent);
-        console.log("Updated content:", updatedContent);
 
-        await this.templateContent.fill(updatedContent);
+        //await this.templateContent.fill(updatedContent);
+        // Clear and fill the new content
+        await this.templateContent.evaluate((el, value) => {
+            el.innerText = value; // Directly update the inner text
+        }, updatedContent);
+        
         console.log("Template content updated.");
 
         console.log("Selecting 'Document' option...");
@@ -33,10 +38,10 @@ class ModalEditTemplatePage {
         const dropdown = this.page.locator('select');
         await dropdown.selectOption('DOCUMENT_TEMPLATE');
 
-        console.log("🔍 Closing dropdown...");
+        console.log(" Closing dropdown...");
         await this.page.mouse.click(10, 10); // Click outside to close dropdown
 
-        console.log('🔍 Clicking the "Save & use" button...');
+        console.log('Clicking the "Save & use" button...');
         let retries = 3;
         while (retries > 0) {
             try {

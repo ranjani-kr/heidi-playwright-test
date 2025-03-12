@@ -7,7 +7,10 @@ class PasswordPage{
     }
 
     async isPasswordVisible() {
-        return await this.heading.isVisible();
+        return await this.heading.isVisible(); 
+    }
+    async waitForPasswordField() {
+        await this.password.waitFor({ state: 'visible', timeout: 10000 });
     }
 
     async enterPassword(password) {

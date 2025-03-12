@@ -6,11 +6,11 @@ const { HomePage } = require('../../pages/HomePage');
 const { UploadModal } = require('../../pages/UploadModal');
 const { DocumentGenerationPage } = require('../../pages/DocumentGenerationPage');
 const { NotePage } = require('../../pages/NotePage');
-const { ModalEditTemplatePage } = require('../../pages/ModalEditTemplatePage');
+const { ModalEditTemplatePage } = require('../../pages/ModalEditTemplatePage.js');
 const { ReferralPage } = require('../../pages/ReferralPage');
 const path = require('path');
 
-test('Sample Test Flow', async ({ page }) => {
+test('Create and update session successfully', async ({ page }) => {
 test.setTimeout(150000); // Setting timeout
 
 // Initialize Page Objects
@@ -32,6 +32,8 @@ await loginPage.goto();
 expect(await loginPage.isLoginModalVisible()).toBeTruthy();
 
 await loginPage.enterEmail(userEmail);
+await passwordPage.waitForPasswordField();
+//await passwordPage.isPasswordVisible();
 expect(await passwordPage.isPasswordVisible()).toBeTruthy();
 await passwordPage.enterPassword(userPassword);
 

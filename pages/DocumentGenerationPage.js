@@ -9,7 +9,7 @@ class DocumentGenerationPage {
     }
 
     async waitForDocumentGeneration() {
-        await this.generatingDoc.waitFor({ state: 'visible', timeout: 180000 });
+        //await this.generatingDoc.waitFor({ state: 'visible', timeout: 180000 });
         await this.generatingDoc.waitFor({ state: 'hidden', timeout: 180000 });
         await Promise.race([
             this.page.waitForFunction(() => !document.querySelector('button')?.innerText.includes('Generating document'), null, { timeout: 180000 }),
@@ -32,13 +32,13 @@ class DocumentGenerationPage {
     async verifyUpdatedNoteTab(noteTabName) {
         console.log(`Checking if updated note tab '${noteTabName}' is created...`);
         const updatedNotesTab = this.page.getByRole('tab', { name: noteTabName });
-        await expect(updatedNotesTab).toBeVisible({ timeout: 60000 });
+        await expect(updatedNotesTab).toBeVisible({ timeout: 120000 });
         await expect(updatedNotesTab).toHaveAttribute('aria-selected', 'true');
     }
-    
+
     async verifyUpdatedNoteContent() {
         console.log("Checking if updated note content is present...");
-        const updatedNewNotes = this.page.locator('.DraftEditor-editorContainer [contenteditable="true"]');
+        const updatedNewNotes = this.page.locator('.tiptap.ProseMirror[role="textbox"]');
         await updatedNewNotes.waitFor({ state: 'visible', timeout: 60000 });
         await expect(updatedNewNotes).not.toBeEmpty();
 

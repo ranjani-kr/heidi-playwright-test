@@ -4,13 +4,12 @@ class LoginPage {
         this.modal = page.locator('[role="dialog"]'); // Login modal
         this.welcomeText = this.modal.locator('h2', { hasText: 'Welcome back' });
         this.emailInput = this.modal.locator('input[type="email"]');
-        this.signInButton = this.modal.locator('button', { hasText: 'Sign in with email' });
-        
+        this.signInButton = this.modal.locator('button', { hasText: 'Sign in with email' });  
     }
 
     async goto() {
         console.log("Navigating to Login Page");
-        await this.page.goto('https://scribe.heidihealth.com/');
+        await this.page.goto('/');
     }
 
     async isLoginModalVisible() {
